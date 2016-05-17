@@ -8,7 +8,7 @@ Oh-see is a wrapper for [mirror-mirror](https://github.com/matteofigus/mirror-mi
 * Opening a matrix of urls with Chrome
 * Optionally specify a set of operations to perform
 * Take a screenshot
-* Replace a DTP components' baseUrl and re-render the component
+* Replace a components' baseUrl and re-render the component
 * Optionally specify another set of operations to perform
 * Take another screenshot
 * Compare the screenshots and save a diff file with the highighted differences
