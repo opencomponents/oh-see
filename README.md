@@ -66,6 +66,7 @@ oh.run(function(err, result){
   console.log(arguments);
   process.exit(0);
 });
+```
 
 ### API
 
