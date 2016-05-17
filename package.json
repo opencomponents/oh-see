@@ -1,0 +1,33 @@
+{
+  "name": "oh-see",
+  "version": "1.0.0",
+  "description": "Look at your OC component in production before deploying it to production",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ./node_modules/.bin/jshint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/opentable/oh-see"
+  },
+  "keywords": [
+    "oc",
+    "testing",
+    "mirror-mirror",
+    "production",
+    "opencomponents"
+  ],
+  "author": "Matteo Figus",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/opentable/oh-see/issues"
+  },
+  "homepage": "https://github.com/opentable/oh-see",
+  "dependencies": {
+    "lodash": "^4.12.0",
+    "mirror-mirror": "^0.1.0"
+  },
+  "devDependencies": {
+    "jshint": "^2.9.2"
+  }
+}
