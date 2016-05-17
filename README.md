@@ -1,4 +1,4 @@
-oh-see
+oh-see [![Build Status](https://secure.travis-ci.org/opentable/oh-see.png?branch=master)](http://travis-ci.org/opentable/oh-see)
 ======
 
 So that you can see how [OC components](https://github.com/opentable/oc) look in production **before** publishing them to production.
