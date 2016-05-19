@@ -11,13 +11,13 @@ Oh-see is a wrapper for [mirror-mirror](https://github.com/matteofigus/mirror-mi
 * Replace a component's baseUrl and re-render it
 * Optionally specify another set of operations to perform
 * Take another screenshot
-* Compare the screenshots and save a diff file with the highighted differences
+* Compare the screenshots and save a diff file with the highlighted differences
 
-Most important features: 
+Most important features:
 * Crazy quick compare to Selenium with Phantom
 * Able to hide/show Browser
 * Works with any OS
-* Able to use DevTools and do debugging with Chrome 
+* Able to use DevTools and do debugging with Chrome
 
 # Requirements:
 
@@ -70,7 +70,102 @@ oh.run(function(err, result){
 
 ### API
 
-TODO
+1. [Set up an instance](#set-up-an-instance)
+2. [Configure the runner](#configure-the-runner)
+  * [action examples](#nightmare-actions-example)
+  * [transformation types](#transformation-types)
+3. [Start the runner](#start-the-runner)
+
+### Set up an instance
+
+`var ohSee = new OhSee([NighmareOptions]);`
+
+Look at [Nighmare.js options](https://github.com/segmentio/nightmare#nightmareoptions).
+
+### Configure the runner
+
+`ohSee.setup(ohSeeOptions);`
+
+This is an object with the following structure:
+
+|name|type|mandatory|description|
+|----|----|---------|-----------|
+|concurrency|`number`|no|Default 3, is the concurrency of tests|
+|cookies|`object`|no|Allows to specify cookies to be used for each request|
+|debug|`boolean`|no|When true, shows stuff in the console|
+|headers|`object`|no|Allows to specify headers to be used for each request|
+|postRendering|`array of functions`|no|An array of nightmareJs actions to perform after the transformation and before the second screenshots. [Look at the example below](#nightmare-actions-example)|
+|postRendering|`array of functions`|no|An array of nightmareJs actions to perform after the transformation and before the second screenshots. [Look at the example below](#nightmare-actions-example)|
+|retries|`number`|no|Default 3, number of retries after a failing session|
+|screenshotsPath|`string`|yes|The path where to save the screenshots|
+|componentName|`string`|yes|The component name|
+|timeout|`number`|no|Default 20000, when the session is going to be restarted|
+|transformation|`object`|true|The transformation to apply to the component. Look at the [Transformation types below](#transformation-types)|
+|urls|`object`|yes|The urls to test. Key is used to generate screenshots file name so keep it simple and without spaces and stuff|
+
+#### Nightmare actions example
+
+This example shows how to make a screenshot with a menu opened, assuming the transformation replaces the menu and then needs to run another javascript initialisation and then wait to complete before performing the same action again.
+
+```js
+ohSee.setup({
+  ...
+  preRender: [
+    function(nightmare){
+      return nightmare.evaluate(function(){
+        // Assuming jQuery is in the page
+        $('#navbar-button').click();
+      });
+    }
+  ],
+  postRender: [
+    function(nightmare){
+      return nightmare.evaluate(function(){
+        window.menusReady = false;
+        window.menus.initialise(function(){
+          window.menusReady = true;
+        });
+      });
+    },
+    function(nightmare){
+      return nightmare.wait(function(){
+        return window.menusReady === true;
+      });
+    },
+    function(nightmare){
+      return nightmare.evaluate(function(){
+        $('#navbar-button').click();
+      });
+    }
+  ]
+});
+```
+
+#### Transformation types
+
+##### Base url replacement
+
+Replaces the components' base url to another one. Useful for comparing a local one with the production one.
+
+```js
+var transformation = {
+  type: 'replaceBaseUrl',
+  oldUrl: 'https://my-registry.my-company.com',
+  newUrl: 'http://localhost:3000/'
+};
+
+...
+```
+
+### Start the runner
+
+`ohSee.run(callback);`
+
+Where callback is going to have an error and/or a response with the results. If any of the requests fails, the callback will include both an error + the response with succeeding screenshot links.
+
+# Contributing
+
+Yes please. Open an issue first.
 
 ### License
 
