@@ -60,23 +60,39 @@ module.exports = function(conf){
 
         selector: component,
 
-        before: [function(nigthmare){
-          return nigthmare.evaluate(function(transformation, selector, componentName){
-            window.ohSee = {
-              componentName: componentName,
-              rendered: false,
-              selector: selector,
-              transformation: transformation
-            };
+        before: [
+          function(nigthmare){
+            return nigthmare.evaluate(function(transformation, selector, componentName, tryAppendLang){
 
-          }, options.transformation, component, options.componentName);
-        }],
+              var html = document.querySelector('html');
+
+              window.ohSee = {
+                componentName: componentName,
+                rendered: false,
+                selector: selector,
+                transformation: transformation,
+                tryAppendLang: tryAppendLang || false
+              };
+
+              if(!!html){
+                window.ohSee.lang = html.getAttribute('lang');
+              }
+
+            }, options.transformation, component, options.componentName, options.tryAppendLang);
+          }
+        ],
 
         transform: function(selected){
-          var currentHref = selected.getAttribute('href'),
-              oldUrl = window.ohSee.transformation.oldUrl,
-              newUrl = window.ohSee.transformation.newUrl,
+          var ohSee = window.ohSee,
+              currentHref = selected.getAttribute('href'),
+              oldUrl = ohSee.transformation.oldUrl,
+              newUrl = ohSee.transformation.newUrl,
               newHref = currentHref.replace(oldUrl, newUrl);
+
+          if(ohSee.tryAppendLang && !!ohSee.lang){
+            var hasQs = newHref.indexOf('?') >= 0;
+            newHref += (hasQs ? '&' : '?') + '__ocAcceptLanguage=' + ohSee.lang;
+          }
 
           return '<oc-component href="' + newHref + '" data-name="' + window.ohSee.componentName +'"></oc-component>';
         },
