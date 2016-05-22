@@ -1,6 +1,6 @@
 {
   "name": "oh-see",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Look at your OC component in production before deploying it to production",
   "main": "index.js",
   "scripts": {
