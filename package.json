@@ -25,7 +25,7 @@
   "homepage": "https://github.com/opentable/oh-see",
   "dependencies": {
     "lodash": "^4.12.0",
-    "mirror-mirror": "^0.1.0"
+    "mirror-mirror": "^0.2.0"
   },
   "devDependencies": {
     "jshint": "^2.9.2"
