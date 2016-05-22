@@ -101,6 +101,7 @@ This is an object with the following structure:
 |componentName|`string`|yes|The component name|
 |timeout|`number`|no|Default 20000, when the session is going to be restarted|
 |transformation|`object`|true|The transformation to apply to the component. Look at the [Transformation types below](#transformation-types)|
+|tryAppendLang|`boolean`|no|Default `false`, when `true` appends to the component's href the `__ocAcceptLanguage` parameter, inheriting the value from `html` DOM element's `lang` attribute. This is required when re-rendering a server-side rendered component that depends on `Accept-Language` attribute for being rendered in the correct language|
 |urls|`object`|yes|The urls to test. Key is used to generate screenshots file name so keep it simple and without spaces and stuff|
 
 #### Nightmare actions example
