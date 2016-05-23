@@ -5,7 +5,7 @@ So that you can see how [OC components](https://github.com/opentable/oc) look in
 
 Oh-see is a wrapper for [mirror-mirror](https://github.com/matteofigus/mirror-mirror) which is a wrapper for [Nightmare.js](https://github.com/segmentio/nightmare). Oh-see is been built for:
 
-* Opening a matrix of urls with Chrome
+* Opening a matrix of urls and viewports with Chrome
 * Optionally specify a set of operations to perform
 * Take a screenshot
 * Replace a component's baseUrl and re-render it
@@ -90,19 +90,20 @@ This is an object with the following structure:
 
 |name|type|mandatory|description|
 |----|----|---------|-----------|
+|componentName|`string`|yes|The component name|
 |concurrency|`number`|no|Default 3, is the concurrency of tests|
 |cookies|`object`|no|Allows to specify cookies to be used for each request|
 |debug|`boolean`|no|When true, shows stuff in the console|
 |headers|`object`|no|Allows to specify headers to be used for each request|
-|postRendering|`array of functions`|no|An array of nightmareJs actions to perform after the transformation and before the second screenshots. [Look at the example below](#nightmare-actions-example)|
+|preRendering|`array of functions`|no|An array of nightmareJs actions to perform before the first screenshots. [Look at the example below](#nightmare-actions-example)|
 |postRendering|`array of functions`|no|An array of nightmareJs actions to perform after the transformation and before the second screenshots. [Look at the example below](#nightmare-actions-example)|
 |retries|`number`|no|Default 3, number of retries after a failing session|
 |screenshotsPath|`string`|yes|The path where to save the screenshots|
-|componentName|`string`|yes|The component name|
 |timeout|`number`|no|Default 20000, when the session is going to be restarted|
 |transformation|`object`|yes|The transformation to apply to the component. Look at the [Transformation types below](#transformation-types)|
 |tryAppendLang|`boolean`|no|Default `false`, when `true` appends to the component's href the `__ocAcceptLanguage` parameter, inheriting the value from `html` DOM element's `lang` attribute. This is required when re-rendering a server-side rendered component that depends on `Accept-Language` attribute for being rendered in the correct language|
 |urls|`object`|yes|The urls to test. Key is used to generate screenshots file name so keep it simple and without spaces and stuff|
+|viewports|`array of arrays|no|Default `[[800, 600]]`, the viewports for executing the tests|
 
 #### Nightmare actions example
 
