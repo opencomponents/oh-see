@@ -57,6 +57,7 @@ module.exports = function(conf){
         screenshotsPath: options.screenshotsPath,
         timeout: options.timeout,
         urls: options.urls,
+        viewports: options.viewports,
 
         selector: component,
 
