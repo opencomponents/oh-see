@@ -4,11 +4,11 @@
   "description": "Look at your OC component in production before deploying it to production",
   "main": "index.js",
   "scripts": {
-    "test": "node ./node_modules/.bin/jshint ."
+    "test": "eslint ."
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/opentable/oh-see"
+    "url": "https://github.com/opencomponents/oh-see"
   },
   "keywords": [
     "oc",
@@ -20,14 +20,15 @@
   "author": "Matteo Figus",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/opentable/oh-see/issues"
+    "url": "https://github.com/opencomponents/oh-see/issues"
   },
-  "homepage": "https://github.com/opentable/oh-see",
+  "homepage": "https://github.com/opencomponents/oh-see",
   "dependencies": {
     "lodash": "^4.12.0",
     "mirror-mirror": "^1.0.0"
   },
   "devDependencies": {
-    "jshint": "^2.9.2"
+    "eslint": "^2.11.1",
+    "eslint-config-defaults": "^9.0.0"
   }
 }
