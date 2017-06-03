@@ -29,7 +29,6 @@
   },
   "devDependencies": {
     "eslint": "^2.11.1",
-    "eslint-config-defaults": "^9.0.0",
-    "jshint": "^2.9.2"
+    "eslint-config-defaults": "^9.0.0"
   }
 }
