@@ -1,7 +1,7 @@
-oh-see [![Build Status](https://secure.travis-ci.org/opentable/oh-see.png?branch=master)](http://travis-ci.org/opentable/oh-see)
+oh-see [![Build Status](https://secure.travis-ci.org/opencomponents/oh-see.png?branch=master)](http://travis-ci.org/opencomponents/oh-see)
 ======
 
-So that you can see how [OC components](https://github.com/opentable/oc) look in production **before** publishing them to production.
+So that you can see how [OC components](https://github.com/opencomponents/oc) look in production **before** publishing them to production.
 
 Oh-see is a wrapper for [mirror-mirror](https://github.com/matteofigus/mirror-mirror) which is a wrapper for [Nightmare.js](https://github.com/segmentio/nightmare). Oh-see is been built for:
 
@@ -21,7 +21,7 @@ Most important features:
 
 # Requirements:
 
-* Node version: min: **0.10.40**, recommended: **>=4.2.X**
+* Node version: min: **6**
 * `<oc-component>` container needs to be present in rendered components to make `oh-see` work.
 
 ### Install
@@ -33,9 +33,9 @@ npm install oh-see
 ### Usage example
 
 ```js
-var OhSee = require('oh-see');
+const OhSee = require('oh-see');
 
-var oh = new OhSee({
+const oh = OhSee({
   // Nightmare.js options
   openDevTools: true,
   show: false
@@ -62,7 +62,7 @@ oh.setup({
   screenshotsPath: './screenshots'
 });
 
-oh.run(function(err, result){
+oh.run((err, result) => {
   console.log(arguments);
   process.exit(0);
 });
@@ -113,32 +113,17 @@ This example shows how to make a screenshot with a menu opened, assuming the tra
 ohSee.setup({
   ...
   preRender: [
-    function(nightmare){
-      return nightmare.evaluate(function(){
-        // Assuming jQuery is in the page
-        $('#navbar-button').click();
-      });
-    }
+    (nightmare) => nightmare.evaluate(() => $('#navbar-button').click()
   ],
   postRender: [
-    function(nightmare){
-      return nightmare.evaluate(function(){
-        window.menusReady = false;
-        window.menus.initialise(function(){
-          window.menusReady = true;
-        });
-      });
-    },
-    function(nightmare){
-      return nightmare.wait(function(){
-        return window.menusReady === true;
-      });
-    },
-    function(nightmare){
-      return nightmare.evaluate(function(){
-        $('#navbar-button').click();
-      });
-    }
+    (nightmare) => nightmare.evaluate(() => {
+      window.menusReady = false;
+      window.menus.initialise(() => window.menusReady = true);
+    }),
+
+    (nightmare) => nightmare.wait(() => window.menusReady === true),
+
+    (nightmare) => nightmare.evaluate(() => $('#navbar-button').click())
   ]
 });
 ```
@@ -150,12 +135,11 @@ ohSee.setup({
 Replaces the components' base url to another one. Useful for comparing a local one with the production one.
 
 ```js
-var transformation = {
+const transformation = {
   type: 'replaceBaseUrl',
   oldUrl: 'https://my-registry.my-company.com',
   newUrl: 'http://localhost:3000/'
 };
-
 ...
 ```
 
