@@ -4,7 +4,9 @@
   "description": "Look at your OC component in production before deploying it to production",
   "main": "index.js",
   "scripts": {
-    "test": "eslint ."
+    "test": "eslint .",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -25,10 +27,12 @@
   "homepage": "https://github.com/opencomponents/oh-see",
   "dependencies": {
     "lodash": "^4.12.0",
-    "mirror-mirror": "^1.0.0"
+    "mirror-mirror": "^1.0.0",
+    "snyk": "^1.41.1"
   },
   "devDependencies": {
     "eslint": "^2.11.1",
     "eslint-config-defaults": "^9.0.0"
-  }
+  },
+  "snyk": true
 }
